@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-geist-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,6 +39,13 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  /* Trust-tier semantic tokens — each maps to a real skill security state. */
+  --color-safe: var(--safe);
+  --color-safe-foreground: var(--safe-foreground);
+  --color-caution: var(--caution);
+  --color-caution-foreground: var(--caution-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,73 +55,95 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+  Dark-locked, emerald-accented security palette. The whole app runs in one
+  theme (per the Page Theme Lock rule) — a deliberate brand decision for a
+  trust/security product. Neutrals are a cool near-black zinc; the single
+  accent is emerald, which also doubles as the "verified-safe" trust signal.
+*/
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(0.155 0.004 285.8);
+  --foreground: oklch(0.97 0.003 286);
+  --card: oklch(0.185 0.005 285.8);
+  --card-foreground: oklch(0.97 0.003 286);
+  --popover: oklch(0.185 0.005 285.8);
+  --popover-foreground: oklch(0.97 0.003 286);
+  --primary: oklch(0.76 0.15 163);
+  --primary-foreground: oklch(0.16 0.02 165);
+  --secondary: oklch(0.24 0.006 286);
+  --secondary-foreground: oklch(0.97 0.003 286);
+  --muted: oklch(0.24 0.006 286);
+  --muted-foreground: oklch(0.68 0.012 286);
+  --accent: oklch(0.27 0.02 165);
+  --accent-foreground: oklch(0.9 0.05 163);
+  --destructive: oklch(0.62 0.21 18);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.76 0.15 163);
+  --chart-1: oklch(0.76 0.15 163);
+  --chart-2: oklch(0.7 0.13 200);
+  --chart-3: oklch(0.72 0.15 85);
+  --chart-4: oklch(0.62 0.21 18);
+  --chart-5: oklch(0.6 0.11 285);
+  --radius: 0.7rem;
+
+  /* Trust tiers */
+  --safe: oklch(0.76 0.15 163);
+  --safe-foreground: oklch(0.16 0.02 165);
+  --caution: oklch(0.79 0.15 78);
+  --caution-foreground: oklch(0.25 0.05 78);
+  --danger: oklch(0.64 0.21 18);
+  --danger-foreground: oklch(0.98 0.01 18);
+
+  --sidebar: oklch(0.185 0.005 285.8);
+  --sidebar-foreground: oklch(0.97 0.003 286);
+  --sidebar-primary: oklch(0.76 0.15 163);
+  --sidebar-primary-foreground: oklch(0.16 0.02 165);
+  --sidebar-accent: oklch(0.24 0.006 286);
+  --sidebar-accent-foreground: oklch(0.97 0.003 286);
+  --sidebar-border: oklch(1 0 0 / 9%);
+  --sidebar-ring: oklch(0.76 0.15 163);
 }
 
+/* Keep `.dark` in sync so shadcn components relying on it match :root. */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: oklch(0.155 0.004 285.8);
+  --foreground: oklch(0.97 0.003 286);
+  --card: oklch(0.185 0.005 285.8);
+  --card-foreground: oklch(0.97 0.003 286);
+  --popover: oklch(0.185 0.005 285.8);
+  --popover-foreground: oklch(0.97 0.003 286);
+  --primary: oklch(0.76 0.15 163);
+  --primary-foreground: oklch(0.16 0.02 165);
+  --secondary: oklch(0.24 0.006 286);
+  --secondary-foreground: oklch(0.97 0.003 286);
+  --muted: oklch(0.24 0.006 286);
+  --muted-foreground: oklch(0.68 0.012 286);
+  --accent: oklch(0.27 0.02 165);
+  --accent-foreground: oklch(0.9 0.05 163);
+  --destructive: oklch(0.62 0.21 18);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.76 0.15 163);
+  --chart-1: oklch(0.76 0.15 163);
+  --chart-2: oklch(0.7 0.13 200);
+  --chart-3: oklch(0.72 0.15 85);
+  --chart-4: oklch(0.62 0.21 18);
+  --chart-5: oklch(0.6 0.11 285);
+  --safe: oklch(0.76 0.15 163);
+  --safe-foreground: oklch(0.16 0.02 165);
+  --caution: oklch(0.79 0.15 78);
+  --caution-foreground: oklch(0.25 0.05 78);
+  --danger: oklch(0.64 0.21 18);
+  --danger-foreground: oklch(0.98 0.01 18);
+  --sidebar: oklch(0.185 0.005 285.8);
+  --sidebar-foreground: oklch(0.97 0.003 286);
+  --sidebar-primary: oklch(0.76 0.15 163);
+  --sidebar-primary-foreground: oklch(0.16 0.02 165);
+  --sidebar-accent: oklch(0.24 0.006 286);
+  --sidebar-accent-foreground: oklch(0.97 0.003 286);
+  --sidebar-border: oklch(1 0 0 / 9%);
+  --sidebar-ring: oklch(0.76 0.15 163);
 }
 
 @layer base {
@@ -127,4 +156,110 @@
   html {
     @apply font-sans;
   }
+  /* Subtle top-of-page glow for the security/tech feel. */
+  body {
+    background-image: radial-gradient(
+      60rem 40rem at 50% -10rem,
+      oklch(0.76 0.15 163 / 0.08),
+      transparent 70%
+    );
+    background-repeat: no-repeat;
+  }
+}
+
+/* Minimal, self-contained prose styles for rendered (sanitized) SKILL.md. */
+.prose-skill {
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: var(--foreground);
+}
+.prose-skill > :first-child {
+  margin-top: 0;
+}
+.prose-skill h1,
+.prose-skill h2,
+.prose-skill h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-top: 1.75rem;
+  margin-bottom: 0.6rem;
+}
+.prose-skill h1 {
+  font-size: 1.4rem;
+}
+.prose-skill h2 {
+  font-size: 1.15rem;
+}
+.prose-skill h3 {
+  font-size: 1rem;
+}
+.prose-skill p,
+.prose-skill ul,
+.prose-skill ol {
+  margin-block: 0.75rem;
+}
+.prose-skill ul,
+.prose-skill ol {
+  padding-left: 1.25rem;
+}
+.prose-skill ul {
+  list-style: disc;
+}
+.prose-skill ol {
+  list-style: decimal;
+}
+.prose-skill li {
+  margin-block: 0.25rem;
+}
+.prose-skill a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-skill strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.prose-skill code {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85em;
+  background: var(--secondary);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.35rem;
+}
+.prose-skill pre {
+  background: color-mix(in oklab, var(--background) 60%, black);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  margin-block: 1rem;
+}
+.prose-skill pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.8rem;
+}
+.prose-skill blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  color: var(--muted-foreground);
+  margin-block: 1rem;
+}
+.prose-skill table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 1rem;
+  font-size: 0.85rem;
+}
+.prose-skill th,
+.prose-skill td {
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.65rem;
+  text-align: left;
+}
+.prose-skill th {
+  background: var(--secondary);
+  font-weight: 600;
 }
