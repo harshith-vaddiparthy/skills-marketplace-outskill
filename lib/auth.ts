@@ -5,6 +5,12 @@ import { db } from "@/lib/db";
 import * as schema from "@/lib/db/auth-schema";
 
 export const auth = betterAuth({
+  // In production set BETTER_AUTH_SECRET (a long random string) and
+  // BETTER_AUTH_URL. In dev a fallback keeps the build/session working.
+  secret:
+    process.env.BETTER_AUTH_SECRET ??
+    "dev-only-insecure-secret-set-BETTER_AUTH_SECRET-in-prod",
+  baseURL: process.env.BETTER_AUTH_URL,
   database: drizzleAdapter(db, {
     provider: "pg",
     schema,
