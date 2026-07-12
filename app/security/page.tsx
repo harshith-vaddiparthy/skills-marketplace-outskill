@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { ScanPreview } from "@/components/scan-preview";
 import { TrustBadge } from "@/components/trust-badge";
+import { LiveScanner } from "@/components/live-scanner";
 import { SCAN_LAYERS, type TrustTier } from "@/lib/trust";
 
 export const metadata: Metadata = {
@@ -111,6 +112,25 @@ export default function SecurityPage() {
               );
             })}
           </ol>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------- try it yourself */}
+      <section className="border-t border-border/80">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Try the scanner yourself
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              This is the real engine, running on the server. Paste a skill and
+              run it, or start from the malicious example and watch it get
+              blocked with the hidden payload decoded in front of you.
+            </p>
+          </div>
+          <div className="mt-10">
+            <LiveScanner />
+          </div>
         </div>
       </section>
 
