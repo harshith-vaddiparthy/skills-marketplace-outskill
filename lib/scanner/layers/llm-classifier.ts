@@ -95,11 +95,20 @@ export async function classifyInjection(
       messages: [{ role: "user", content: buildUserContent(bundle) }],
     });
 
-    const timeout = new Promise<never>((_, reject) =>
-      setTimeout(() => reject(new Error("llm-timeout")), timeoutMs),
-    );
+    // A no-op catch on `call` prevents an unhandled rejection if the timeout
+    // wins the race; the timer is cleared in `finally` so it can't fire late.
+    call.catch(() => undefined);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const timeout = new Promise<never>((_, reject) => {
+      timer = setTimeout(() => reject(new Error("llm-timeout")), timeoutMs);
+    });
 
-    const resp = await Promise.race([call, timeout]);
+    let resp: unknown;
+    try {
+      resp = await Promise.race([call, timeout]);
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
     const parsed = parseVerdict(extractText(resp));
 
     if (!parsed) {
