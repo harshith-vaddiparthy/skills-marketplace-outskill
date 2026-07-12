@@ -33,6 +33,11 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Keep real secrets out of git, but allow the placeholder example to be committed.
+.env
+.env*.local
+!.env.example
+
 # vercel
 .vercel
 
